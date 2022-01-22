@@ -5,11 +5,12 @@ from datetime import date
 numberofclasses = [5,7,5,4,4,0,0]
 weekend = ["Saturday","Sunday"]
 
-def login(number,today):
+def login(number):
     check=0
     wb = excel.open_workbook(r"C:\Users\ASUS\OneDrive\Pictures\Screenshots\OneDrive\Desktop\Zoom-Class-Logger\Timetable.xlsx")
     sheet = wb.sheet_by_index(0)
     i=0
+    today = date.today().strftime("%A")
     for i in range(sheet.ncols):
         if today in sheet.cell_value(0,i):
             link = sheet.cell_value(number,i)
@@ -18,19 +19,19 @@ def login(number,today):
             break
     if numberofclasses[i] == number:
         check=1
-    lis = [number+1,check]
+    lis = [int(number)+1,int(check)]
     return lis
 
 def main():
     i=1
     check=0
-    today = date.today().strftime("%A");
-    for i in weekend:
-        if i==today:
+    today = date.today().strftime("%A")
+    for j in weekend:
+        if j==today:
             return
     print("Press Enter to proceed")
     while((not check) and (input()=="" or input())):
-        lis=login(i,today)
+        lis=login(i)
         i=lis[0]
         check=lis[1]
 main()
